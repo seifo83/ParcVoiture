@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+{% block titrePage %}Inscription{% endblock %}
+
+
+
+{% block body %}
+    <div class="container">
+        {{ form_start(form) }}
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    {{ form_widget(form) }}
+                </div>
+                <div class="col-8">
+                <input type="submit" class="btn btn-primary" value="Valider">
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

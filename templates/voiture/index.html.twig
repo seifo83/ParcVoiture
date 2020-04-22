@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voiture{% endblock %}
+
+{% block titrePage %}Liste des Voitures {% endblock %}
+
+
+
+{% block body %}
+<div class="container">
+    <div class="row justify-start-">
+        <div class="col-8">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{message}}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{{ form_start(form) }}
+<div class="row align-items-center justify-content-center text-center" >
+    <div class="col-3" >
+        {{ form_row(form.minAnnee) }}
+    </div>
+    <div class="col-3" >
+        {{ form_row(form.maxAnnee) }}
+    </div>
+    <div class="col-1" >
+        <input type="submit"  class="btn btn-secondary" value="Rechercher">
+    </div>
+</div>
+{{ form_end(form) }}
+
+{% if admin %}
+    <div class="row justify-content-center ">
+        <a href="{{path('add_admin')}}" class="col-8 btn btn-success">Ajouter</a>
+    </div>
+{% endif %}
+
+<div class=" row navigation m-2 justify-content-center text-center">
+    {{ knp_pagination_render(voiture) }}
+</div>
+
+
+<br>
+<div class="container">
+<div class="row justify-content-center">
+    {% for row in voiture %}
+        <div class="col-12 col-lg-6 p-1">
+            <div class="card-deck">
+                <div class="card mb-3">
+                    <img class="card-img" src="{{ asset('image/' ~ row.modele.image)}}">
+                    <div class="card-body">
+                        <h4 class="card-title">{{row.modele.libelle}}</h4>
+                        <h5 class="card-title">Immatriculation: {{row.immatriculation}}</h5>
+                        <ul class="card-text">
+                            <p class="text-muted">
+                                <li>Nombre de porte: {{row.nbPortes}}</li>
+                                <li>Année: {{row.annee}}</li>
+                            </p>
+                        </ul>
+                        {% if admin %}
+                            <div class="row justify-content-center">
+                                <a href="{{path('modif_admin', {'id' : row.id})}}" class="col m-1 btn btn-warning">Modifier</a>
+                                <form method="post" class="col m-1" action="{{path('delete_admin', {'id' : row.id})}}"  onsubmit="return confirm('Confirmer la suppression ?')">
+                                    <input type="hidden" name="_method", value="delete">
+                                    <input type="hidden" name="_token", value="{{csrf_token('delete' ~ row.id)}}">
+                                    <input type="submit" class="btn btn-danger w-100" value="Supprimer">
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</div>
+<div class="row navigation m-2 justify-content-center text-center">
+    {{ knp_pagination_render(voiture) }}
+</div>
+<br>
+{% endblock %}
+
+
+
+
+

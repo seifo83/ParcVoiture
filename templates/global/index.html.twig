@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+{% block titrePage %}Concession H2PROG Automobile{% endblock %}
+
+
+
+{% block body %}
+
+<div class="container">
+  <div class="row justify-start-">
+      <div class="col-8">
+          {% for message in app.flashes('success') %}
+              <div class="alert alert-success">
+                  {{message}}
+              </div>
+          {% endfor %}
+      </div>
+  </div>
+</div>
+
+
+{% endblock %}

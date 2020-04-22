@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+{% block titrePage %}login{% endblock %}
+
+
+
+{% block body %}
+{% if error %}
+<div class="alert alert-danger">
+    {{error.messageKey | trans(error.messagedata,'security')}}
+</div>
+{% endif %}
+
+
+<div class="container">
+    <form action="{{path('login')}}" method="POST">
+        <div class="row justify-content-center">
+            <div class="col-8 m-4">
+                <label>Login : </label>
+                <input type="text" required name="_username" class="form-control" value="{{lastUsername}}">
+            </div>
+            <div class="col-8 m-2">
+                <label>Password : </label>
+                <input type="password" required name="_password" class="form-control">
+            </div>
+            <div class="col-8 m-5">
+                <input type="submit" class="btn btn-primary w-100" value="Connexion">
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
